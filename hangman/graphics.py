@@ -52,3 +52,10 @@ HANGMANPICS = ['''
  / \  |
       |
 =========''']
+
+class GameDisplay:
+    def __init__(self):
+        self.hangman = iter(HANGMANPICS)
+
+    def get_next_hangman(self):
+        return self.hangman.__next__()
