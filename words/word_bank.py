@@ -9,5 +9,5 @@ class WordBank:
             words = [line.strip("\n").lower() for line in file.readlines()]
         return words
 
-    def get_word(self, word_length):
+    def get_word(self, word_length=100):
         return choice([word for word in self.word_list if len(word) <= word_length])
