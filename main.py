@@ -1,4 +1,5 @@
 import words.word_bank as wb
+import hangman.graphics as hg
 import os
 from rich import print
 from rich.panel import Panel
@@ -19,19 +20,19 @@ WORDLENGTHERROR = """
 [white]Please enter an [red]integer [white]from 3 to 20 
 """
 
-def game_box(text):
+def game_box(*text):
     os.system('clear')
     print(
         Panel(
             Padding(
                 Align(
-                    text,
+                    '\n'.join(text),
                     align='center',
                     vertical='middle'
                     ), 
                 3), 
             title="Hangman LevelUp 2022",
-            height=15)
+            height=18)
         )
 
 def is_valid_word_length(string):
@@ -42,7 +43,6 @@ def is_valid_word_length(string):
     return True
 
 def main():
-
     game_box(WELCOMETEXT)
     name = input()
 
@@ -56,7 +56,13 @@ def main():
     word_length = int(word_length)
     word_bank = wb.WordBank()
     word = word_bank.get_word(word_length)
-    game_box(word)
+    turn_counter = 0
+    hangman_output = hg.GameDisplay()
+    while turn_counter < 7:
+        current_hangman = hangman_output.get_next_hangman()
+        game_box(current_hangman, '____________', 'e,q,p')
+        input()
+        turn_counter += 1
 
     return
 
