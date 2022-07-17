@@ -1,10 +1,7 @@
 import words.word_bank as wb
 import hangman.graphics as hg
-import os
-from rich import print
-from rich.panel import Panel
-from rich.padding import Padding
-from rich.align import Align
+
+TURNLIMIT = 7
 
 WELCOMETEXT = """
 [white]Welcome to [red]LevelUp 2022[white]!
@@ -20,21 +17,6 @@ WORDLENGTHERROR = """
 [white]Please enter an [red]integer [white]from 3 to 20 
 """
 
-def game_box(*text):
-    os.system('clear')
-    print(
-        Panel(
-            Padding(
-                Align(
-                    '\n'.join(text),
-                    align='center',
-                    vertical='middle'
-                    ), 
-                3), 
-            title="Hangman LevelUp 2022",
-            height=18)
-        )
-
 def is_valid_word_length(string):
     if not string.isdigit():
         return False
@@ -43,25 +25,28 @@ def is_valid_word_length(string):
     return True
 
 def main():
-    game_box(WELCOMETEXT)
+    game_display = hg.GameDisplay()
+    game_display.game_box(WELCOMETEXT)
     name = input()
 
-    game_box(WORDLENGTHTEXT.format(name))
+    game_display.game_box(WORDLENGTHTEXT.format(name))
     word_length = input()
 
     while not is_valid_word_length(word_length):
-        game_box(WORDLENGTHERROR)
+        game_display.game_box(WORDLENGTHERROR)
         word_length = input()
 
     word_length = int(word_length)
-    word_bank = wb.WordBank()
-    word = word_bank.get_word(word_length)
+    word_bank = wb.WordBank(word_length)
     turn_counter = 0
-    hangman_output = hg.GameDisplay()
-    while turn_counter < 7:
-        current_hangman = hangman_output.get_next_hangman()
-        game_box(current_hangman, '____________', 'e,q,p')
-        input()
+    while turn_counter < TURNLIMIT:
+        game_display.game_box(
+            game_display.get_next_hangman(), 
+            word_bank.get_current_guess_state(), 
+            word_bank.get_letters_guessed()
+            )
+        guess = input().lower()
+        word_bank.letters_guessed.append(guess)
         turn_counter += 1
 
     return
