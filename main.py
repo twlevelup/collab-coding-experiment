@@ -26,28 +26,35 @@ def is_valid_word_length(string):
 
 def main():
     game_display = hg.GameDisplay()
+
+    # game_box is the output the player sees
     game_display.game_box(WELCOMETEXT)
     name = input()
 
     game_display.game_box(WORDLENGTHTEXT.format(name))
     word_length = input()
 
+    # if input isnt a number, will keep asking for input
     while not is_valid_word_length(word_length):
         game_display.game_box(WORDLENGTHERROR)
         word_length = input()
 
     word_length = int(word_length)
+
+    # The wordbank generates a list of words and selects one
+    # Also handles the guess logic
     word_bank = wb.WordBank(word_length)
-    turn_counter = 0
-    while turn_counter < TURNLIMIT:
+
+    while word_bank.turn_counter < TURNLIMIT:
         game_display.game_box(
             game_display.get_next_hangman(), 
             word_bank.get_current_guess_state(), 
-            word_bank.get_letters_guessed()
-            )
+            word_bank.get_letters_guessed_incorrect(),
+            word_bank.get_current_message()
+        )
         guess = input().lower()
-        word_bank.letters_guessed.append(guess)
-        turn_counter += 1
+        if word_bank.make_a_guess(guess):
+            break
 
     return
 
