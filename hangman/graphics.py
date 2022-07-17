@@ -61,9 +61,15 @@ HANGMANPICS = ['''
 class GameDisplay:
     def __init__(self):
         self.hangman = iter(HANGMANPICS)
+        self.current = ''
 
     def get_next_hangman(self):
-        return self.hangman.__next__()
+        hangman = self.hangman.__next__()
+        self.current = hangman
+        return hangman
+
+    def get_current_hangman(self):
+        return self.current
 
     def game_box(self, *text):
         os.system('clear')
@@ -72,10 +78,12 @@ class GameDisplay:
                 Padding(
                     Align(
                         '\n'.join(text),
-                        align='center',
+                        align='left',
                         vertical='middle'
                         ), 
                     3), 
                 title="Hangman LevelUp 2022",
-                height=18)
+                expand=True,
+                height=20,
+                width=70)
             )

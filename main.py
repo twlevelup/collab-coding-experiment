@@ -1,3 +1,4 @@
+from sre_constants import SUCCESS
 import words.word_bank as wb
 import hangman.graphics as hg
 
@@ -15,6 +16,14 @@ WORDLENGTHTEXT = """
 
 WORDLENGTHERROR = """
 [white]Please enter an [red]integer [white]from 3 to 20 
+"""
+
+SUCCESS = """
+You got it! Congratulations!
+"""
+
+FAILURE = """
+Better luck next time, the word was: {}
 """
 
 def is_valid_word_length(string):
@@ -45,7 +54,7 @@ def main():
     # Also handles the guess logic
     word_bank = wb.WordBank(word_length)
 
-    while word_bank.turn_counter < TURNLIMIT:
+    while word_bank.turn_counter < TURNLIMIT - 1:
         game_display.game_box(
             game_display.get_next_hangman(), 
             word_bank.get_current_guess_state(), 
@@ -54,8 +63,19 @@ def main():
         )
         guess = input().lower()
         if word_bank.make_a_guess(guess):
-            break
-
+            game_display.game_box(
+                game_display.get_current_hangman(), 
+                word_bank.get_current_guess_state(), 
+                word_bank.get_letters_guessed_incorrect(),
+                SUCCESS
+            )
+            return
+    game_display.game_box(
+        game_display.get_current_hangman(), 
+        word_bank.get_current_guess_state(), 
+        word_bank.get_letters_guessed_incorrect(),
+        FAILURE.format(word_bank.get_word())
+    )
     return
 
 if __name__ == '__main__':

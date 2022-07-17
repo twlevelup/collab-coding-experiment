@@ -32,10 +32,10 @@ class WordBank:
         return ','.join(self.letters_guessed_incorrect)
 
     def get_current_message(self):
-        return self.get_current_message
+        return self.current_message
 
     def refresh_guess_state(self):
-        return [letter if letter in self.letters_guessed_correct else '_' for letter in self.get_word()]
+        return ''.join([letter if letter in self.letters_guessed_correct else '_' for letter in self.get_word()])
 
     def make_a_guess(self, guess):
         if len(guess) == 1:
@@ -62,7 +62,6 @@ class WordBank:
                 return True
             else:
                 self.current_message = 'Sorry that wasn\'t the word'
+                self.turn_counter += 1
+                self.letters_guessed_incorrect.append(guess)
                 return False
-
-
-        return
