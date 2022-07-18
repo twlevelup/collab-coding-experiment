@@ -55,6 +55,9 @@ def main():
     word_bank = wb.WordBank(word_length)
 
     while word_bank.turn_counter < TURNLIMIT - 1:
+        # TODO: Move away from using an iterator to show hangman graphic
+        # Shows the hangman, letters correctly and incorrectly guessed
+        # as well as any game messages 
         game_display.game_box(
             game_display.get_next_hangman(), 
             word_bank.get_current_guess_state(), 
@@ -63,6 +66,8 @@ def main():
         )
         guess = input().lower()
         if word_bank.make_a_guess(guess):
+            # TODO: Handle correct guess by guessing all letters vs guessing word
+            # Player guesses correctly and gets a success message
             game_display.game_box(
                 game_display.get_current_hangman(), 
                 word_bank.get_current_guess_state(), 
@@ -70,6 +75,7 @@ def main():
                 SUCCESS
             )
             return
+    # Player fails to guess in time
     game_display.game_box(
         game_display.get_current_hangman(), 
         word_bank.get_current_guess_state(), 
