@@ -59,7 +59,7 @@ def main():
         # Shows the hangman, letters correctly and incorrectly guessed
         # as well as any game messages 
         game_display.game_box(
-            game_display.get_next_hangman(), 
+            game_display.get_current_hangman(word_bank.get_turn()), 
             word_bank.get_current_guess_state(), 
             word_bank.get_letters_guessed_incorrect(),
             word_bank.get_current_message()
@@ -69,7 +69,7 @@ def main():
             # TODO: Handle correct guess by guessing all letters vs guessing word
             # Player guesses correctly and gets a success message
             game_display.game_box(
-                game_display.get_current_hangman(), 
+                game_display.get_current_hangman(word_bank.get_turn()), 
                 word_bank.get_current_guess_state(), 
                 word_bank.get_letters_guessed_incorrect(),
                 SUCCESS
@@ -77,7 +77,7 @@ def main():
             return
     # Player fails to guess in time
     game_display.game_box(
-        game_display.get_current_hangman(), 
+        game_display.get_current_hangman(word_bank.get_turn()), 
         word_bank.get_current_guess_state(), 
         word_bank.get_letters_guessed_incorrect(),
         FAILURE.format(word_bank.get_word())

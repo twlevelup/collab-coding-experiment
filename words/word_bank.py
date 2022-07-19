@@ -34,6 +34,9 @@ class WordBank:
     def get_current_message(self):
         return self.current_message
 
+    def get_turn(self):
+        return self.turn_counter
+
     def refresh_guess_state(self):
         return ''.join([letter if letter in self.letters_guessed_correct else '_' for letter in self.get_word()])
 

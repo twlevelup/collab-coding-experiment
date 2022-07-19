@@ -60,16 +60,10 @@ HANGMANPICS = ['''
 
 class GameDisplay:
     def __init__(self):
-        self.hangman = iter(HANGMANPICS)
-        self.current = ''
+        self.hangman = HANGMANPICS
 
-    def get_next_hangman(self):
-        hangman = self.hangman.__next__()
-        self.current = hangman
-        return hangman
-
-    def get_current_hangman(self):
-        return self.current
+    def get_current_hangman(self, turn):
+        return self.hangman[turn]
 
     def game_box(self, *text):
         os.system('clear')
