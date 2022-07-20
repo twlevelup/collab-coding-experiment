@@ -1,15 +1,15 @@
 from random import choice
 
 DEFAULT_LENGTH = 100
-DEAULT_PATH = "./words/words.txt"
+DEFAULT_PATH = "./words/words.txt"
 
 class WordBank:
-    def __init__(self, word_length=DEFAULT_LENGTH, path=DEAULT_PATH):
+    def __init__(self, word_length=DEFAULT_LENGTH, path=DEFAULT_PATH):
         self.word_list = self.generate_word_list(path)
         self.word_length = word_length
         self.word = self.set_word(word_length)
-        self.letters_guessed_incorrect = []
-        self.letters_guessed_correct = []
+        self.incorrect_guess = []
+        self.correct_guess = []
         self.guess_state = len(self.word)*'_'
         self.current_message = ''
         self.turn_counter = 0
@@ -20,7 +20,9 @@ class WordBank:
         return words
 
     def set_word(self, word_length):
-        return choice([word for word in self.word_list if len(word) == word_length])
+        # TODO: create a list of words of the specified word_length
+        # TODO: randomly select one of those words and return it
+        return 'word'
 
     def get_word(self):
         return self.word
@@ -28,8 +30,8 @@ class WordBank:
     def get_current_guess_state(self):
         return self.guess_state
 
-    def get_letters_guessed_incorrect(self):
-        return ','.join(self.letters_guessed_incorrect)
+    def get_incorrect_guesses(self):
+        return ','.join(self.incorrect_guess)
 
     def get_current_message(self):
         return self.current_message
@@ -38,33 +40,36 @@ class WordBank:
         return self.turn_counter
 
     def refresh_guess_state(self):
-        return ''.join([letter if letter in self.letters_guessed_correct else '_' for letter in self.get_word()])
+        return ''.join([letter if letter in self.correct_guess else '_' for letter in self.get_word()])
 
     def make_a_guess(self, guess):
         if len(guess) == 1:
             if not guess.isalpha():
-                self.current_message = 'Please enter a number!'
+                self.current_message = 'Please enter a letter!'
                 return False
-            elif guess in self.letters_guessed_incorrect or guess in self.letters_guessed_correct:
+            elif guess in self.incorrect_guess or guess in self.correct_guess:
                 self.current_message = 'You already guessed that! Try something else.'
                 return False
             elif guess not in self.get_word():
                 self.turn_counter += 1
-                self.letters_guessed_incorrect.append(guess)
+                self.incorrect_guess.append(guess)
                 self.current_message = 'Sorry, that letter isn\'t in the word, try again!'
                 return False
             elif guess in self.get_word():
                 self.turn_counter += 1
-                self.letters_guessed_correct.append(guess)
+                self.correct_guess.append(guess)
                 self.guess_state = self.refresh_guess_state()
                 self.current_message = 'Nice, you guessed a letter!'
+                if self.guess_state == self.get_word():
+                    return True
                 return False
         else:
             if guess == self.get_word():
                 self.current_message = 'You guessed the word!'
+                # TODO: Display the correct word on the screen
                 return True
             else:
                 self.current_message = 'Sorry that wasn\'t the word'
                 self.turn_counter += 1
-                self.letters_guessed_incorrect.append(guess)
+                self.incorrect_guess.append(guess)
                 return False

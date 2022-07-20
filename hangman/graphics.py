@@ -8,6 +8,27 @@ from rich.align import Align
 # https://gist.github.com/chrishorton/8510732aa9a80a03c829b09f12e20d9c
 
 HANGMANPICS = ['''
+       
+       
+       
+       
+       
+       
+=========''','''
+       
+      |
+      |
+      |
+      |
+      |
+=========''','''
+  +---+
+      |
+      |
+      |
+      |
+      |
+=========''','''
   +---+
   |   |
       |
@@ -65,7 +86,7 @@ class GameDisplay:
     def get_current_hangman(self, turn):
         return self.hangman[turn]
 
-    def game_box(self, *text):
+    def display_game_box(self, *text):
         os.system('clear')
         print(
             Panel(

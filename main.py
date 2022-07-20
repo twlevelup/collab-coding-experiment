@@ -2,7 +2,7 @@ from sre_constants import SUCCESS
 import words.word_bank as wb
 import hangman.graphics as hg
 
-TURNLIMIT = 7
+TURNLIMIT = 9
 
 WELCOMETEXT = """
 [white]Welcome to [red]LevelUp 2022[white]!
@@ -37,15 +37,15 @@ def main():
     game_display = hg.GameDisplay()
 
     # game_box is the output the player sees
-    game_display.game_box(WELCOMETEXT)
+    game_display.display_game_box(WELCOMETEXT)
     name = input()
 
-    game_display.game_box(WORDLENGTHTEXT.format(name))
+    game_display.display_game_box(WORDLENGTHTEXT.format(name))
     word_length = input()
 
     # if input isnt a number, will keep asking for input
     while not is_valid_word_length(word_length):
-        game_display.game_box(WORDLENGTHERROR)
+        game_display.display_game_box(WORDLENGTHERROR)
         word_length = input()
 
     word_length = int(word_length)
@@ -54,32 +54,32 @@ def main():
     # Also handles the guess logic
     word_bank = wb.WordBank(word_length)
 
-    while word_bank.turn_counter < TURNLIMIT - 1:
-        # TODO: Move away from using an iterator to show hangman graphic
+    # TODO: Instruct them to add a word or letter
+
+    while word_bank.turn_counter < TURNLIMIT:
         # Shows the hangman, letters correctly and incorrectly guessed
         # as well as any game messages 
-        game_display.game_box(
+        game_display.display_game_box(
             game_display.get_current_hangman(word_bank.get_turn()), 
             word_bank.get_current_guess_state(), 
-            word_bank.get_letters_guessed_incorrect(),
+            word_bank.get_incorrect_guesses(),
             word_bank.get_current_message()
         )
         guess = input().lower()
         if word_bank.make_a_guess(guess):
-            # TODO: Handle correct guess by guessing all letters vs guessing word
             # Player guesses correctly and gets a success message
-            game_display.game_box(
+            game_display.display_game_box(
                 game_display.get_current_hangman(word_bank.get_turn()), 
                 word_bank.get_current_guess_state(), 
-                word_bank.get_letters_guessed_incorrect(),
+                word_bank.get_incorrect_guesses(),
                 SUCCESS
             )
             return
     # Player fails to guess in time
-    game_display.game_box(
+    game_display.display_game_box(
         game_display.get_current_hangman(word_bank.get_turn()), 
         word_bank.get_current_guess_state(), 
-        word_bank.get_letters_guessed_incorrect(),
+        word_bank.get_incorrect_guesses(),
         FAILURE.format(word_bank.get_word())
     )
     return
