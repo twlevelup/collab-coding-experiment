@@ -39,3 +39,12 @@ To run the subset of tests in the directory e.g. `hangman`
 ```
 python -m unittest discover -s hangman
 ```
+
+To run the specific test file
+
+```
+python -m unittest <path_to_file>
+
+e.g.
+python -m unittest hangman/test/test_startup.py
+```

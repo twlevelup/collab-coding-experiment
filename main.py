@@ -1,6 +1,7 @@
 from sre_constants import SUCCESS
 import words.word_bank as wb
 import hangman.graphics as hg
+import hangman.startup as start
 
 TURNLIMIT = 9
 
@@ -26,13 +27,6 @@ FAILURE = """
 Better luck next time, the word was: {}
 """
 
-def is_valid_word_length(string):
-    if not string.isdigit():
-        return False
-    if int(string) not in range(4,12):
-        return False
-    return True
-
 def main():
     game_display = hg.GameDisplay()
 
@@ -44,7 +38,7 @@ def main():
     word_length = input()
 
     # if input isnt a number, will keep asking for input
-    while not is_valid_word_length(word_length):
+    while not start.is_valid_word_length(word_length):
         game_display.display_game_box(WORDLENGTHERROR)
         word_length = input()
 

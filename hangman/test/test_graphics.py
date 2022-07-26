@@ -1,7 +1,7 @@
 import unittest
 import hangman.graphics as graphics
 
-class TestWordBank(unittest.TestCase):
+class TestGameDisplay(unittest.TestCase):
     @classmethod
     def setUpClass(self):
         self.game = graphics.GameDisplay()
