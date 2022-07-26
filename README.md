@@ -28,8 +28,14 @@ python main.py
 
 ## running the test
 
-To run the test:
+To run all the tests:
 
 ```
-TODO
+python -m unittest
+```
+
+To run the subset of tests in the directory e.g. `hangman`
+
+```
+python -m unittest discover -s hangman
 ```
