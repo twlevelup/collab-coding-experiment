@@ -20,10 +20,6 @@ class TestWordBank(unittest.TestCase):
         word = bank.get_word()
         self.assertGreater(len(word), 0)
 
-    def test_get_word_returns_correct_word_size(self):
-        bank = wb.WordBank()
-        word = bank.get_word(5)
-        self.assertLessEqual(len(word), 5)
 
 if __name__ == '__main__':
     unittest.main()

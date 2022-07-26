@@ -11,11 +11,11 @@ Start by entering your name.
 """
 
 WORDLENGTHTEXT = """
-[white]Hi [red]{}[white], now choose how long you want your word to be[3-20].
+[white]Hi [red]{}[white], now choose how long you want your word to be[4-11].
 """
 
 WORDLENGTHERROR = """
-[white]Please enter an [red]integer [white]from 3 to 20 
+[white]Please enter an [red]integer [white]from 4 to 11 
 """
 
 SUCCESS = """
@@ -29,7 +29,7 @@ Better luck next time, the word was: {}
 def is_valid_word_length(string):
     if not string.isdigit():
         return False
-    if int(string) not in range(3,21):
+    if int(string) not in range(4,12):
         return False
     return True
 

@@ -21,8 +21,8 @@ class WordBank:
 
     def set_word(self, word_length):
         # TODO: create a list of words of the specified word_length
-        # TODO: randomly select one of those words and return it
-        return 'word'
+        # randomly select one of those words and return it
+        return choice(self.word_list)
 
     def get_word(self):
         return self.word
