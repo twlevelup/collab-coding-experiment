@@ -1,6 +1,7 @@
 import unittest
 import hangman.graphics as graphics
 
+
 class TestGameDisplay(unittest.TestCase):
     @classmethod
     def setUpClass(self):

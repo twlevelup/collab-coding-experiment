@@ -3,7 +3,6 @@ import words.word_bank as wb
 import hangman.graphics as hg
 import hangman.game_logic as gl
 
-
 TURNLIMIT = 9
 
 WELCOMETEXT = """
@@ -27,6 +26,7 @@ You got it! Congratulations!
 FAILURE = """
 Better luck next time, the word was: {}
 """
+
 
 def main():
     game_display = hg.GameDisplay()
@@ -57,8 +57,8 @@ def main():
         # Shows the hangman, letters correctly and incorrectly guessed
         # as well as any game messages 
         game_display.display_game_box(
-            game_display.get_current_hangman(game_logic.get_turn()), 
-            game_logic.get_current_guess_state(), 
+            game_display.get_current_hangman(game_logic.get_turn()),
+            game_logic.get_current_guess_state(),
             game_logic.get_incorrect_guesses(),
             game_logic.get_current_message()
         )
@@ -66,20 +66,21 @@ def main():
         if game_logic.make_a_guess(guess):
             # Player guesses correctly and gets a success message
             game_display.display_game_box(
-                game_display.get_current_hangman(game_logic.get_turn()), 
-                game_logic.get_current_guess_state(), 
+                game_display.get_current_hangman(game_logic.get_turn()),
+                game_logic.get_current_guess_state(),
                 game_logic.get_incorrect_guesses(),
                 SUCCESS
             )
             return
     # Player fails to guess in time
     game_display.display_game_box(
-        game_display.get_current_hangman(game_logic.get_turn()), 
-        game_logic.get_current_guess_state(), 
+        game_display.get_current_hangman(game_logic.get_turn()),
+        game_logic.get_current_guess_state(),
         game_logic.get_incorrect_guesses(),
         FAILURE.format(word_bank.get_word())
     )
     return
+
 
 if __name__ == '__main__':
     main()

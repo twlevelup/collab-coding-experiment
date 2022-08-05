@@ -12,7 +12,7 @@ class GameLogic:
 
     def set_correct_word(self, word):
         self.correct_word = word
-        self.guess_state = len(word)*'_'
+        self.guess_state = len(word) * '_'
 
     def get_current_guess_state(self):
         return self.guess_state
@@ -62,12 +62,9 @@ class GameLogic:
                 return False
 
 
-
-
-
 def is_valid_word_length(string):
     if not string.isdigit():
         return False
-    if int(string) not in range(4,12):
+    if int(string) not in range(4, 12):
         return False
     return True

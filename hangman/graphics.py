@@ -14,21 +14,21 @@ HANGMANPICS = ['''
        
        
        
-=========''','''
+=========''', '''
        
       |
       |
       |
       |
       |
-=========''','''
+=========''', '''
   +---+
       |
       |
       |
       |
       |
-=========''','''
+=========''', '''
   +---+
   |   |
       |
@@ -79,6 +79,7 @@ HANGMANPICS = ['''
       |
 =========''']
 
+
 class GameDisplay:
     def __init__(self):
         self.hangman = HANGMANPICS
@@ -95,10 +96,10 @@ class GameDisplay:
                         '\n'.join(text),
                         align='left',
                         vertical='middle'
-                        ), 
-                    3), 
+                    ),
+                    3),
                 title="Hangman LevelUp 2022",
                 expand=True,
                 height=20,
                 width=70)
-            )
+        )
