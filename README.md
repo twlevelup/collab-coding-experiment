@@ -3,6 +3,7 @@
 Simple hangman app
 
 # Get started
+For replit use: All these commands can be followed sequentially in the replit shell as well. 
 
 ## install dependencies
 
